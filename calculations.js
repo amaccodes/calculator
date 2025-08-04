@@ -1,5 +1,7 @@
-
 // constructing the UI for the calculator
+
+// define the node for the the display of the calculator
+const display = document.querySelector('#the-display')
 
 const keyPadContainerParent = document.querySelector('#key-pad-container')
 for (i = 1; i <= 12; i++) {
@@ -8,20 +10,25 @@ for (i = 1; i <= 12; i++) {
     button.style.width = '60px'
     button.style.borderRadius = '32px'
     button.setAttribute('id', `b${i}`)
-    button.textContent = i
+    if (i == 10) {
+        button.textContent = 0
+    } else if (i == 11) {
+        button.textContent = '.'
+    } else if (i == 12) {
+        button.textContent = '^'
+    } else {
+        button.textContent = i
+    }
+    button.addEventListener('click', () => {
+        display.textContent += button.textContent
+    })
     keyPadContainerParent.appendChild(button)
 }
-const button10 = document.querySelector('#b10')
-const button11 = document.querySelector('#b11')
-const button12 = document.querySelector('#b12')
 
-button10.textContent = 0
-button11.textContent = '.'
-button12.textContent = 'exp'
-
-
+// adjusting spacing
 keyPadContainerParent.style.width = (60 * 3) + 13 + 'px'
 
+// creating the bottom three buttons below the number pad buttons
 for (i = 1; i <= 3; i++) {
     const button = document.createElement('button')
     button.style.height = '50px'
@@ -30,14 +37,24 @@ for (i = 1; i <= 3; i++) {
     button.setAttribute('id',`bottom${i}`)
     if (i == 1) {
         button.textContent = '+/-'
+        button.addEventListener('click', () => {
+        //display.textContent = 
+    })
     } else if (i == 2) {
         button.textContent = 'AC'
+        button.addEventListener('click', () => {
+        display.textContent = ''
+    })
     } else {
         button.textContent = '='
+        button.addEventListener('click', () => {
+        display.textContent +=  ' ' + button.textContent + ' ' + operate(display.textContent)
+    })
     }
     keyPadContainerParent.appendChild(button)
 }
 
+// creating div to wrap around the operator buttons
 const containerParent = document.querySelector('#containerForKeyPadContainer')
 const newDiv = document.createElement('div')
 newDiv.setAttribute('id', 'operator-btns')
@@ -50,6 +67,8 @@ newDiv.style.flexDirection = 'column'
 newDiv.style.gap = '5px'
 containerParent.appendChild(newDiv)
 
+
+// creating the side operator buttons 
 for (i = 1; i <= 4; i++) {
     const button = document.createElement('button')
     button.style.height = '50px'
@@ -64,6 +83,9 @@ for (i = 1; i <= 4; i++) {
     } else {
         button.textContent = '/'
     }
+    button.addEventListener('click', () => {
+        display.textContent += button.textContent
+    })
     newDiv.appendChild(button)    
 }
 
@@ -106,3 +128,19 @@ const factorial = function (n) {
 let firstNumber
 let secondNumber
 let operator
+
+
+function operate(a, b, operator) {
+    if (operator == '+') {
+        return a + b
+    } else if (operator == '-') {
+        return a - b
+    } else if (operator == '*') {
+        return a * b
+    } else if (operator == '/') {
+        return a / b 
+    } else if (operator == 'exp') {
+        return a ** b
+    }
+}
+

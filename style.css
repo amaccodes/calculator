@@ -40,6 +40,14 @@ body {
     width: 193px;
     outline: solid whitesmoke;
     border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-inline: 12px;
+    color: whitesmoke;
+    font-size: large;
+    font-weight: 700;
+    flex: 0 0 auto;
 }
 
 main {
