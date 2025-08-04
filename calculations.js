@@ -20,6 +20,9 @@ for (i = 1; i <= 12; i++) {
         button.textContent = i
     }
     button.addEventListener('click', () => {
+        if (display.textContent.split('').includes('=') && display.textContent.split('').includes('^') == false) {
+            display.textContent = ''
+        } 
         display.textContent += button.textContent
     })
     keyPadContainerParent.appendChild(button)
@@ -29,27 +32,48 @@ for (i = 1; i <= 12; i++) {
 keyPadContainerParent.style.width = (60 * 3) + 13 + 'px'
 
 // creating the bottom three buttons below the number pad buttons
-for (i = 1; i <= 3; i++) {
+for (i = 1; i <= 2; i++) {
     const button = document.createElement('button')
     button.style.height = '50px'
-    button.style.width = '60px'
     button.style.borderRadius = '32px'
     button.setAttribute('id',`bottom${i}`)
     if (i == 1) {
-        button.textContent = '+/-'
-        button.addEventListener('click', () => {
-        //display.textContent = 
-    })
-    } else if (i == 2) {
         button.textContent = 'AC'
         button.addEventListener('click', () => {
-        display.textContent = ''
-    })
+            display.textContent = ''
+        })
+        button.style.width = '60px'
     } else {
         button.textContent = '='
         button.addEventListener('click', () => {
-        display.textContent +=  ' ' + button.textContent + ' ' + operate(display.textContent)
-    })
+            if (display.textContent.split('').includes('+')) {
+                index = display.textContent.split('').indexOf('+')
+                operator = display.textContent[index]
+            } else if (display.textContent.split('').includes('-')) {
+                index = display.textContent.split('').indexOf('-')
+                operator = display.textContent[index]
+            } else if (display.textContent.split('').includes('=')) {
+                index = display.textContent.split('=').join('')
+            } else if (display.textContent.split('').includes('*')) {
+                index = display.textContent.split('').indexOf('*')
+                operator = display.textContent[index]
+            } else if (display.textContent.split('').includes('/')) {
+                index = display.textContent.split('').indexOf('/')
+                operator = display.textContent[index]
+            } else if (display.textContent.split('').includes('^')) {
+                index = display.textContent.split('').indexOf('^')
+                operator = display.textContent[index]
+            } else {
+                display.textContent = button.textContent + ' ' + display.textContent
+                return
+            }
+            a = Number(display.textContent.slice(0, index - 1))
+            console.log(a)
+            b = Number(display.textContent.slice(index + 2))
+            console.log(b)
+            display.textContent = button.textContent + ' ' + operate(a, b, operator)
+        })
+        button.style.width = '125px'
     }
     keyPadContainerParent.appendChild(button)
 }
@@ -79,12 +103,15 @@ for (i = 1; i <= 4; i++) {
     } else if (i == 2) {
         button.textContent = '-'
     } else if (i == 3) {
-        button.textContent = 'x'
+        button.textContent = '*'
     } else {
         button.textContent = '/'
     }
     button.addEventListener('click', () => {
-        display.textContent += button.textContent
+        if (display.textContent.split('').includes('=')) {
+            display.textContent = display.textContent.split('=').join('')
+        }
+        display.textContent += ' ' + button.textContent + ' '
     })
     newDiv.appendChild(button)    
 }
@@ -101,12 +128,12 @@ const subtract = function (a, b) {
   return a - b;
 };
 
-const sum = function (array) {
-  return array.reduce((total, current) => total + current, 0);
+const multiply = function (a, b) {
+  return a * b
 };
 
-const multiply = function (array) {
-  return array.reduce((product, current) => product * current)
+const divide = function (a, b) {
+  return a / b
 };
 
 const power = function (a, b) {
@@ -132,15 +159,20 @@ let operator
 
 function operate(a, b, operator) {
     if (operator == '+') {
-        return a + b
+        console.log(add(a, b))
+        return add(a, b)
     } else if (operator == '-') {
-        return a - b
+        console.log(subtract(a, b))
+        return subtract(a ,b)
     } else if (operator == '*') {
-        return a * b
+        console.log(multiply(a, b))
+        return multiply(a, b)
     } else if (operator == '/') {
-        return a / b 
-    } else if (operator == 'exp') {
-        return a ** b
+        console.log(divide(a, b))
+        return divide(a, b)
+    } else if (operator == '^') {
+        console.log(power(a, b))
+        return power(a, b)
     }
 }
 

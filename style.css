@@ -7,6 +7,7 @@
 */
 
 
+
 /* Make the video cover the whole body */
 #bg-video {
   position: fixed;
@@ -23,7 +24,7 @@ body {
 }
 
 #calculator-container {
-    margin: 150px;
+    margin: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,6 +54,14 @@ body {
 main {
     display: flex;
     justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+#wrapper-calculator-container {
+    outline: solid white;
+    border-radius: 40px;
+    margin: 150px;
 }
 
 #key-pad-container {
