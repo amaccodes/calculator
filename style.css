@@ -1,0 +1,55 @@
+/* 
+
+* {
+    outline: solid red;
+} 
+
+*/
+
+
+/* Make the video cover the whole body */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* ensures the video fills the screen without stretching */
+  z-index: -1;       /* pushes the video behind all content */
+}
+
+body {
+    margin: 0px;
+}
+
+#calculator-container {
+    margin: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+#containerForKeyPadContainer {
+    display: flex;
+    gap: 3px;
+}
+
+#the-display {
+    height: 50px;
+    width: 193px;
+    outline: solid whitesmoke;
+    border-radius: 12px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+#key-pad-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+}
